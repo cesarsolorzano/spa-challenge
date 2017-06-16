@@ -1,9 +1,13 @@
-html, 
+html,
 body,
 #root,
 .app {
   min-height: 100%;
   height: 100%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif !important;
 }
 
 #header {
@@ -40,14 +44,41 @@ body,
   width: 75%;
 }
 
+.character-item {
+  min-height: 250px;
+  margin-bottom: 20px;
+  margin-top: 20px
+}
+
+.character-item .btn-more {
+  border-radius: 0;
+  background-color: #ec1d23;
+  text-transform: uppercase;
+  border-color: #ec1d23;
+  color: #fff;
+  font-weight: 800;
+}
+
+.character-item h4 {
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.character-item p {
+  font-weight: 200;
+}
+
 .favorites-content {
   width: 25%;
   background-color: #ebebeb;
   z-index: -1;
 }
 
+.content-title {
+  margin-bottom: 50px;
+}
 .content-title h2 {
-  font-weight: 600;
+  font-weight: 700;
   line-height: 40px;
 }
 
