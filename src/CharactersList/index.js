@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { apikey, hash, apiPath } from '../config';
 import charactersIcon from '../img/icons/characters.png';
 import CharacterItem from './CharacterItem';
+import Pagination from './Pagination';
 
 class CharactersList extends Component {
  constructor(props) {
@@ -12,62 +14,43 @@ class CharactersList extends Component {
     this.state = {
       loading: true,
       characters: [],
-      offset: 0,
-      total: 0,
-      count: 0,
     };
 
-    this.changePage = this.changePage.bind(this);
+    this.fetchCharacters = this.fetchCharacters.bind(this);
   }
 
-  componentDidMount() {
+  fetchCharacters(refresh) {
+    this.setState({ loading: true });
     const ts = '1';
-    axios.get(`${apiPath}/public/characters`, {
+    return axios.get(`${apiPath}/public/characters`, {
       params: {
         ts,
         apikey,
         hash,
-        limit: 10,
-        offset: this.state.offset,
+        limit: this.props.limit,
+        offset: refresh ? 0 : this.props.offset,
+        orderBy: this.props.orderBy ? this.props.orderBy : null,
+        nameStartsWith: this.props.name ? this.props.name : null,
       }
     }).then(res => {
         this.setState({
           characters: res.data.data.results,
-          total: res.data.data.total,
-          count: res.data.data.count,
           loading: false,
         });
+        this.props.updateTotalAndCount(res.data.data.total, res.data.data.count);
       });
+  }
+
+  componentDidMount() {
+    this.fetchCharacters();
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.offset !== prevState.offset) {
-      this.setState({ loading: true });
-      const ts = '1';
-      axios.get(`${apiPath}/public/characters`, {
-        params: {
-          ts,
-          apikey,
-          hash,
-          limit: 10,
-          offset: this.state.offset,
-        }
-      }).then(res => {
-        this.setState({
-          characters: res.data.data.results,
-          total: res.data.data.total,
-          count: res.data.data.count,
-          loading: false,
-        });
-      });
-    }
-  }
-
-  changePage(type) {
-    if (type) {
-      this.setState({ offset: this.state.offset + this.state.count });
-    } else {
-      this.setState({ offset: this.state.offset - this.state.count });
+    if (this.props.offset !== prevProps.offset ||
+      this.props.orderBy !== prevProps.orderBy ||
+      this.props.name !== prevProps.name
+    ) {
+      this.fetchCharacters(this.props.name !== prevProps.name);
     }
   }
 
@@ -83,13 +66,30 @@ class CharactersList extends Component {
 
     return (
       <div>
-        <div className="content-title">
-          <img src={charactersIcon} className="pull-left icon" alt="Favorites" />
-          <h2>Characters</h2>
+        <div className="row">
+          <div className="col-md-8">
+            <div className="content-title">
+              <img src={charactersIcon} className="pull-left icon" alt="Favorites" />
+              <h2>Characters</h2>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <select
+              className="form-control input-lg sort-by"
+              onChange={this.props.changeOrderBy}
+              value={this.state.orderBy}
+            >
+              <option value="">Sort by</option>
+              <option value="name">Name (A-Z)</option>
+              <option value="-name">Name (Z-A)</option>
+              <option value="-modified">First modified</option>
+              <option value="modified">Last modified</option>
+            </select>
+          </div>
         </div>
         {
           this.state.loading &&
-          <h4>Loading...</h4>
+          <h4 className="text-center">Loading...</h4>
         }
         {
           !this.state.loading &&
@@ -99,32 +99,33 @@ class CharactersList extends Component {
                 { pair.map(character =>
                   <div className="col-md-6" key={character.id}>
                     <CharacterItem
-                      name={character.name}
-                      description={character.description}
-                      thumbnail={character.thumbnail}
+                      character={character}
+                      displayCharacterDetails={this.props.displayCharacterDetails}
                     />
                   </div>)}
               </div>
             );
           })
         }
-        <nav>
-          <ul className="pagination">
-            <li>
-              <a href="#" onClick={() => this.changePage(false)}>
-                <span>&laquo;</span>
-              </a>
-            </li>
-            <li>
-              <a href="#" onClick={this.changePage}>
-                <span>&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <Pagination
+          changePage={this.props.changePage}
+          total={this.props.total}
+          limit={this.props.limit}
+          offset={this.props.offset}
+        />
       </div>
     );
   }
 }
+
+CharactersList.propTypes = {
+  limit: PropTypes.number,
+  offset: PropTypes.number,
+  orderBy: PropTypes.string,
+  displayCharacterDetails: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  changeOrderBy: PropTypes.func.isRequired,
+  updateTotalAndCount: PropTypes.func.isRequired,
+};
 
 export default CharactersList;

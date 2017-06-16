@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import marvelLogo from './img/marvel-logo.png';
+import PropTypes from 'prop-types';
 
 class Header extends Component {
   render() {
@@ -15,6 +16,8 @@ class Header extends Component {
                 type="text"
                 className="form-control input-lg search-input"
                 placeholder="Search character..."
+                value={this.props.name}
+                onChange={this.props.onSearchChange}
               />
             </div>
           </div>
@@ -23,5 +26,10 @@ class Header extends Component {
     );
   }
 }
+
+Header.propTypes = {
+  name: PropTypes.string.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
+};
 
 export default Header;
