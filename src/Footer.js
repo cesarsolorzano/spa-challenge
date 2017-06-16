@@ -11,7 +11,7 @@ class Footer extends Component {
               <p>Grability 2017 - Todos los derechos reservados</p>
             </div>
             <div className="col-md-4">
-              <img src={logo} className="pull-right" />
+              <img src={logo} className="pull-right" alt="Logo" />
             </div>
           </div>
         </div>
