@@ -283,6 +283,24 @@ Modal
 }
 
 /**
+Favorites
+**/
+.favorite-comic-item {
+  margin-bottom: 50px;
+}
+.favorite-comic-item h4 {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 800;
+}
+.favorite-comic-item  .delete-btn {
+  position: absolute;
+  right: 0;
+  top: -15px;
+  cursor: pointer;
+}
+
+/**
 Footer
 **/
 #footer {

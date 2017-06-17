@@ -5,6 +5,7 @@ import './App.css';
 import Header from './Header';
 import Footer from './Footer';
 import CharactersList from './CharactersList';
+import FavoritesList from './FavoritesList';
 import CharacterPage from './CharacterPage';
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
       orderBy: '',
       total: 0,
       offset: 0,
-      favorites: {},
+      favorites: JSON.parse(localStorage.getItem('favorites')) || {},
     }
 
     this.limit = 10;
@@ -29,6 +30,7 @@ class App extends Component {
     this.changeOrderBy = this.changeOrderBy.bind(this);
     this.updateTotalAndCount = this.updateTotalAndCount.bind(this);
     this.addToFavorite = this.addToFavorite.bind(this);
+    this.deleteComic = this.deleteComic.bind(this);
     this.isFavorite = this.isFavorite.bind(this);
   }
   
@@ -61,17 +63,27 @@ class App extends Component {
   }
 
   addToFavorite(comic) {
-    const favorites = this.state.favorites;
+    const favorites = Object.assign({}, this.state.favorites);
     if (!favorites.hasOwnProperty(comic.id)) {
       favorites[comic.id] = comic;
       this.setState({ favorites });
     }
-
   }
 
   isFavorite(comicId) {
-    const favorites = this.state.favorites;
+    const favorites = Object.assign({}, this.state.favorites);
     return favorites.hasOwnProperty(comicId);
+  }
+
+  deleteComic(comicId) {
+    const favorites = Object.assign({}, this.state.favorites);
+    delete favorites[comicId];
+    this.setState({ favorites });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.favorites !== this.state.favorites) {
+      localStorage.setItem('favorites', JSON.stringify(this.state.favorites));
+    }
   }
 
   render() {
@@ -107,6 +119,7 @@ class App extends Component {
             }
           </div>
           <div className="favorites-content">
+            <FavoritesList favorites={this.state.favorites} deleteComic={this.deleteComic} />
           </div>
         </div>
         <Footer />
