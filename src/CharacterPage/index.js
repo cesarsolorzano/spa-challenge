@@ -26,7 +26,7 @@ class CharacterPage extends Component {
   componentDidMount() {
     const ts = '1';
     return axios.get(`${apiPath}/public/characters/${this.props.character.id}/comics`, {
-      params: { ts, apikey, hash }
+      params: { ts, apikey, hash, limit: 100 }
     }).then(res => {
       const comics = res.data.data.results;
         this.setState({ comics, loading: false });
