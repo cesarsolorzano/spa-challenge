@@ -4,13 +4,14 @@ import { Modal } from 'react-bootstrap';
 
 import BuyButton from './BuyButton';
 import AddToFavoriteButton from './AddToFavoriteButton';
+import getImage from '../helpers/getImage';
 
-import imageNotAvailable from '../img/image_not_available.jpg'
 import closeIcon from '../img/icons/btn-close.png'
 
 class ComicModal extends Component {
   render() {
     const isAdded = this.props.isFavorite(this.props.comic.id);
+    const thumbnail = getImage(this.props.comic.images) ;
 
     return (
         <Modal show={this.props.showModal} onHide={this.props.closeModel} dialogClassName="modal-comic">
@@ -21,7 +22,7 @@ class ComicModal extends Component {
             <div className="row comic-content">
               <div className="col-xs-5">
                 <img
-                  src={this.props.comic.images && this.props.comic.images[0] ? `${this.props.comic.images[0].path}.${this.props.comic.images[0].extension}` : imageNotAvailable}
+                  src={thumbnail}
                   alt={this.props.comic.title}
                   className="img-responsive"
                 />

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import imageNotAvailable from '../img/image_not_available.jpg';
+import getImage from '../helpers/getImage';
+
 import deleteIcon from '../img/icons/btn-delete.png';
 
 class Comic extends Component {
   render() {
-    const image = this.props.comic.images.length > 0 ? this.props.comic.images[0]  : null;
-    const imagePath = image ? `${image.path}.${image.extension}` : imageNotAvailable;
+    const thumbnail = getImage(this.props.comic.images);
 
     return (
       <div className="favorite-comic-item">
@@ -16,7 +16,7 @@ class Comic extends Component {
             <div className="delete-btn" onClick={() => this.props.deleteComic(this.props.comic.id)}>
               <img src={deleteIcon} alt="Delete" />
             </div>
-            <img src={imagePath} className="img img-responsive" alt={this.props.comic.title} />
+            <img src={thumbnail} className="img img-responsive" alt={this.props.comic.title} />
           </div>
         </div>
         <h4>{this.props.comic.title}</h4>

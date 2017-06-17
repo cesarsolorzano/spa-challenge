@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import getThumbnail from '../helpers/getThumbnail';
+
 class CharacterItem extends Component {
   render() {
     const comics = this.props.character.comics.items.slice(0, 4);
     const hasComics = comics.length > 0;
+    const thumbnail = getThumbnail(this.props.character.thumbnail.path,
+      this.props.character.thumbnail.extension);
 
     return (
       <div className="character-item">
@@ -12,7 +16,7 @@ class CharacterItem extends Component {
           <div className="col-xs-5">
             <div
               className="image"
-              style={{backgroundImage: `url(${this.props.character.thumbnail.path}.${this.props.character.thumbnail.extension})`}}
+              style={{backgroundImage: `url(${thumbnail})`}}
             ></div>
           </div>
           <div className="col-xs-7">

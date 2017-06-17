@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import imageNotAvailable from '../img/image_not_available.jpg'
+import getImage from '../helpers/getImage';
 
 class Comic extends Component {
   render() {
-    const image = this.props.comic.images.length > 0 ? this.props.comic.images[0]  : null;
-    const imagePath = image ? `${image.path}.${image.extension}` : imageNotAvailable;
+    const thumbnail = getImage(this.props.comic.images);
 
     return (
       <div className="col-md-2">
         <a className="clickeable" onClick={() => this.props.displayComic(this.props.comic)}>
-          <img src={imagePath} className="img img-responsive" alt={this.props.comic.title} />
+          <img src={thumbnail} className="img img-responsive" alt={this.props.comic.title} />
           <p>{this.props.comic.title}</p>
         </a>
       </div>

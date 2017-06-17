@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import getThumbnail from '../helpers/getThumbnail';
+
 class Header extends Component {
   render() {
+    const thumbnail = getThumbnail(this.props.character.thumbnail.path,
+      this.props.character.thumbnail.extension);
+
     return (
       <div>
         <div className="content-title">
@@ -15,7 +20,7 @@ class Header extends Component {
         </div>
         <div
           className="character-background"
-          style={{backgroundImage: `url(${this.props.character.thumbnail.path}.${this.props.character.thumbnail.extension})`}}
+          style={{backgroundImage: `url(${thumbnail})`}}
         >
           <div className="background-dark"></div>
           <div className="character-header">
