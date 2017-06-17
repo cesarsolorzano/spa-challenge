@@ -10,7 +10,7 @@ class Comic extends Component {
 
     return (
       <div className="col-md-2">
-        <a className="clickeable" onClick={this.props.onClick}>
+        <a className="clickeable" onClick={() => this.props.displayComic(this.props.comic)}>
           <img src={imagePath} className="img img-responsive" alt={this.props.comic.title} />
           <p>{this.props.comic.title}</p>
         </a>
@@ -22,7 +22,7 @@ class Comic extends Component {
 
 Comic.propTypes = {
   comic: PropTypes.object.isRequired,
-  onClick: PropTypes.func,
+  displayComic: PropTypes.func,
 };
 
 export default Comic;

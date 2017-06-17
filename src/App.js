@@ -17,6 +17,7 @@ class App extends Component {
       orderBy: '',
       total: 0,
       offset: 0,
+      favorites: {},
     }
 
     this.limit = 10;
@@ -27,6 +28,8 @@ class App extends Component {
     this.changePage = this.changePage.bind(this);
     this.changeOrderBy = this.changeOrderBy.bind(this);
     this.updateTotalAndCount = this.updateTotalAndCount.bind(this);
+    this.addToFavorite = this.addToFavorite.bind(this);
+    this.isFavorite = this.isFavorite.bind(this);
   }
   
   onSearchChange(event) {
@@ -57,6 +60,20 @@ class App extends Component {
     this.setState({ total, count });
   }
 
+  addToFavorite(comic) {
+    const favorites = this.state.favorites;
+    if (!favorites.hasOwnProperty(comic.id)) {
+      favorites[comic.id] = comic;
+      this.setState({ favorites });
+    }
+
+  }
+
+  isFavorite(comicId) {
+    const favorites = this.state.favorites;
+    return favorites.hasOwnProperty(comicId);
+  }
+
   render() {
     return (
       <div className="app">
@@ -84,6 +101,8 @@ class App extends Component {
                 key={this.state.character.id}
                 character={this.state.character}
                 goBack={this.goBack}
+                addToFavorite={this.addToFavorite}
+                isFavorite={this.isFavorite}
               />
             }
           </div>

@@ -5,6 +5,8 @@ import axios from 'axios';
 import { apikey, hash, apiPath } from '../config';
 import Header from './Header';
 import ComicRow from './ComicRow';
+import ComicModal from './ComicModal';
+
 
 class CharacterPage extends Component {
  constructor(props) {
@@ -13,7 +15,12 @@ class CharacterPage extends Component {
     this.state = {
       loading: true,
       comics: [],
+      showModal: false,
+      comic: {},
     };
+
+    this.displayComic = this.displayComic.bind(this);
+    this.closeModel = this.closeModel.bind(this);
   }
 
   componentDidMount() {
@@ -24,6 +31,14 @@ class CharacterPage extends Component {
       const comics = res.data.data.results;
         this.setState({ comics, loading: false });
       });
+  }
+
+  displayComic(comic) {
+    this.setState({ comic, showModal: true });
+  }
+
+  closeModel() {
+    this.setState({ showModal: false });
   }
 
   render() {
@@ -50,8 +65,19 @@ class CharacterPage extends Component {
         {
           !this.state.loading &&
           comics.map((group, index) =>
-            <ComicRow group={group} key={`comic-${this.props.character.id}-group-${index}`} />)
+            <ComicRow
+              group={group}
+              key={`comic-${this.props.character.id}-group-${index}`}
+              displayComic={this.displayComic}
+            />)
         }
+        <ComicModal
+          showModal={this.state.showModal}
+          comic={this.state.comic}
+          closeModel={this.closeModel}
+          addToFavorite={this.props.addToFavorite}
+          isFavorite={this.props.isFavorite}
+        />
       </div>
     );
   }
@@ -61,6 +87,8 @@ class CharacterPage extends Component {
 CharacterPage.propTypes = {
   character: PropTypes.object.isRequired,
   goBack: PropTypes.func,
+  addToFavorite: PropTypes.func,
+  isFavorite: PropTypes.func,
 };
 
 export default CharacterPage;

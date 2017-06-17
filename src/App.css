@@ -229,6 +229,60 @@ Page
 }
 
 /**
+Modal
+**/
+.modal-comic {
+  width: 55%;
+}
+.modal-comic .modal-body {
+  padding-bottom: 0;
+}
+.modal-comic .modal-content {
+  border-radius: 0;
+}
+.modal-comic .comic-content {
+  padding: 30px 15px;
+}
+.modal-comic .comic-content .description {
+  font-weight: 200;
+}
+.modal-comic .title{
+  text-transform: uppercase;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+}
+.modal-comic .comic-buttons .col-xs-6 {
+  padding: 0;
+}
+.buy-btn {
+  background-color: #dcdcdc;
+  color: #ec1d23;
+  text-align: center;
+  font-weight: 800;
+  padding: 15px 0;
+  cursor: pointer;
+}
+.favorite-btn {
+  background-color: #f0f0f0;
+  color: #3d3332;
+  text-align: center;
+  font-weight: 800;
+  padding: 15px 0;
+  cursor: pointer;
+}
+.favorite-btn.added {
+  background-color: #322827;
+  color: #ec1d23;
+}
+.favorite-btn .message,
+.buy-btn .message {
+  text-transform: uppercase;
+  margin-left: 15px;
+  line-height: 40px;
+  font-size: 18px;
+}
+
+/**
 Footer
 **/
 #footer {

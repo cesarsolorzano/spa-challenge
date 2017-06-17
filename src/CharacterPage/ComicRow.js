@@ -8,7 +8,8 @@ class ComicRow extends Component {
     return (
     <div className="row comic-row">
       {
-        this.props.group.map(comic => <Comic comic={comic} key={comic.id} />)
+        this.props.group.map(comic =>
+          <Comic comic={comic} key={comic.id} displayComic={this.props.displayComic} />)
       }
     </div>
     );
@@ -17,6 +18,7 @@ class ComicRow extends Component {
 
 ComicRow.propTypes = {
   group: PropTypes.array.isRequired,
+  displayComic: PropTypes.func.isRequired,
 };
 
 export default ComicRow;
