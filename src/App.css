@@ -6,11 +6,6 @@ body,
   height: 100%;
 }
 
-body {
-  font-family: 'Roboto', sans-serif !important;
-  background: #f4f4f4
-}
-
 #header {
   background-color: #2d2727;
   padding: 10px 0;
