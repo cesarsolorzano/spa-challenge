@@ -44,7 +44,7 @@ class App extends Component {
 
   changePage(page) {
     const offset = (page - 1) * this.limit;
-    if (page > 0 && offset <= this.state.total) {
+    if (page > 0 && offset < this.state.total) {
       this.setState({ offset });
     }
   }

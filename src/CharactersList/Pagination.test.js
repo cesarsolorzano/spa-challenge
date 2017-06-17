@@ -12,11 +12,8 @@ describe('Pagination', () => {
         offset={0}
       />);
     const result = renderer.getRenderOutput();
-    const items = result.props.children.props.children;
 
-    expect(items[0].props.className).toBe('disabled');
-    expect(items[1].length).toBe(0);
-    expect(items[2].props.className).toBe('disabled');
+    expect(result).toBe(null);
   });
 
   it('should render items with disabled class', () => {

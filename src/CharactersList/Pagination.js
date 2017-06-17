@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import getFirstLastPage from './getFirstLastPage';
+
 import arrowLeft from '../img/icons/btn_arrow_left.png';
 import arrowRight from '../img/icons/btn_arrow_right.png';
-
 
 class Pagination extends Component {
   render() {
     const numbers = [];
-    const totalPages = Math.ceil(this.props.total / this.props.limit);
-    let currentPage = (this.props.offset / this.props.limit) === 0 ? 1 : (this.props.offset / this.props.limit) + 1;
-
-    let firstPage = currentPage <= 2 ? 1 : currentPage - 2;
-    const lastPage = Math.min(firstPage + 4, totalPages);
-    firstPage = (lastPage - firstPage) < 4 ? 1 : firstPage;
+    const { firstPage, currentPage, lastPage, totalPages } = getFirstLastPage(
+      this.props.total, this.props.limit, this.props.offset);
+    
+    if (!totalPages) {
+      return null;
+    }
 
     for(let i = firstPage; i <= lastPage; i += 1) {
       numbers.push(
