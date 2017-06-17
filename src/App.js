@@ -19,7 +19,7 @@ class App extends Component {
       total: 0,
       offset: 0,
       favorites: JSON.parse(localStorage.getItem('favorites')) || {},
-    }
+    };
 
     this.limit = 10;
 

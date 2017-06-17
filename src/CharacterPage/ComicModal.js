@@ -6,7 +6,7 @@ import BuyButton from './BuyButton';
 import AddToFavoriteButton from './AddToFavoriteButton';
 import getImage from '../helpers/getImage';
 
-import closeIcon from '../img/icons/btn-close.png'
+import closeIcon from '../img/icons/btn-close.png';
 
 class ComicModal extends Component {
   render() {

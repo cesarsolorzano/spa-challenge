@@ -7,6 +7,6 @@ const getImage = (images) => {
     const thumbnail = image ? getThumbnail(image.path, image.extension) : imageNotAvailable;
 
     return thumbnail;
-}
+};
 
 export default getImage;
