@@ -17,7 +17,11 @@ class ComicModal extends Component {
         <Modal show={this.props.showModal} onHide={this.props.closeModel} dialogClassName="modal-comic">
           <Modal.Body>
             <div>
-              <img src={closeIcon} alt="close" onClick={this.props.closeModel}  className="pull-right clickeable" />
+              <img
+                src={closeIcon}
+                alt="close"
+                onClick={this.props.closeModel}
+                className="pull-right clickeable" />
             </div>
             <div className="row comic-content">
               <div className="col-xs-5">
@@ -29,12 +33,18 @@ class ComicModal extends Component {
               </div>
               <div className="col-xs-7">
                 <h3 className="title">{this.props.comic.title}</h3>
-                <div className="description" dangerouslySetInnerHTML={{ __html: this.props.comic.description}}></div>
+                <div
+                  className="description"
+                  dangerouslySetInnerHTML={{ __html: this.props.comic.description}}
+                ></div>
               </div>
             </div>
             <div className="row comic-buttons">
               <div className="col-xs-6">
-                <AddToFavoriteButton added={isAdded} onClick={() => this.props.addToFavorite(this.props.comic)} />
+                <AddToFavoriteButton
+                  added={isAdded}
+                  onClick={() => this.props.addToFavorite(this.props.comic)}
+                />
               </div>
               <div className="col-xs-6">
                 {
