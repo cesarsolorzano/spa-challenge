@@ -107,6 +107,10 @@ class CharactersList extends Component {
             );
           })
         }
+        {
+          !this.state.loading && !this.props.total &&
+          <h4 className="text-center">No characters were found</h4>
+        }
         <Pagination
           changePage={this.props.changePage}
           total={this.props.total}
