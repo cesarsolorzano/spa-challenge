@@ -67,7 +67,7 @@ class CharactersListContainer extends Component {
       <div>
         <CharactersList
           characters={characters}
-          loading={this.state.loadin}
+          loading={this.state.loading}
           orderBy={this.props.orderBy}
           displayCharacterDetails={this.props.displayCharacterDetails}
           changeOrderBy={this.props.changeOrderBy}
