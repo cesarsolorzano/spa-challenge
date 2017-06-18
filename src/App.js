@@ -20,7 +20,7 @@ class App extends Component {
       orderBy: '',
       total: 0,
       offset: 0,
-      favorites: JSON.parse(localStorage.getItem('favorites')) || {},
+      favorites: {},
     };
 
     this.limit = 10;
@@ -93,6 +93,13 @@ class App extends Component {
     });
 
     this.setState({ favorites });
+  }
+
+  componentDidMount() {
+    if (localStorage.getItem('favorites')) {
+      const favorites = JSON.parse(localStorage.getItem('favorites'));
+      this.setState({ favorites });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
