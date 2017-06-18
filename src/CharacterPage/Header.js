@@ -28,6 +28,11 @@ class Header extends Component {
             <h4>{this.props.character.description}</h4>
           </div>
         </div>
+        <div className="text-right">
+          <button className="btn btn-more" onClick={this.props.addRandomComics}>
+            Add 3 comics to favorites
+          </button>
+        </div>
       </div>
     );
   }

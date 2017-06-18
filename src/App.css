@@ -64,13 +64,17 @@ Main content
   min-height: 360px;
 }
 
-.character-item .btn-more {
+.btn-more {
   border-radius: 0;
   background-color: #ec1d23;
   text-transform: uppercase;
   border-color: #ec1d23;
   color: #fff;
   font-weight: 800;
+}
+
+.btn-more:hover {
+  color: #fff;
 }
 
 .character-item .main-content {

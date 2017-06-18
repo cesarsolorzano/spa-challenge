@@ -54,7 +54,11 @@ class CharacterPage extends Component {
 
     return (
       <div>
-        <Header character={this.props.character} goBack={this.props.goBack} />
+        <Header
+          character={this.props.character}
+          goBack={this.props.goBack}
+          addRandomComics={() => this.props.addRandomComics(this.state.comics)}
+        />
         {
           this.state.loading &&
           <h4 className="text-center">Loading...</h4>
@@ -89,6 +93,7 @@ CharacterPage.propTypes = {
   goBack: PropTypes.func,
   addToFavorite: PropTypes.func,
   isFavorite: PropTypes.func,
+  addRandomComics: PropTypes.func,
 };
 
 export default CharacterPage;

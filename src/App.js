@@ -8,6 +8,8 @@ import CharactersList from './CharactersList';
 import FavoritesList from './FavoritesList';
 import CharacterPage from './CharacterPage';
 
+import getRandomComics from './helpers/getRandomComics';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +34,7 @@ class App extends Component {
     this.addToFavorite = this.addToFavorite.bind(this);
     this.deleteComic = this.deleteComic.bind(this);
     this.isFavorite = this.isFavorite.bind(this);
+    this.addRandomComics = this.addRandomComics.bind(this);
   }
   
   onSearchChange(event) {
@@ -80,6 +83,18 @@ class App extends Component {
     delete favorites[comicId];
     this.setState({ favorites });
   }
+
+  addRandomComics(comics) {
+    const favorites = Object.assign({}, this.state.favorites);
+    const randomComics = getRandomComics(comics, favorites);
+
+    randomComics.forEach(comic => {
+      favorites[comic.id] = comic;
+    });
+
+    this.setState({ favorites });
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevState.favorites !== this.state.favorites) {
       localStorage.setItem('favorites', JSON.stringify(this.state.favorites));
@@ -115,6 +130,7 @@ class App extends Component {
                 goBack={this.goBack}
                 addToFavorite={this.addToFavorite}
                 isFavorite={this.isFavorite}
+                addRandomComics={this.addRandomComics}
               />
             }
           </div>
