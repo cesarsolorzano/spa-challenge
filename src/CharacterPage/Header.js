@@ -28,11 +28,14 @@ class Header extends Component {
             <h4>{this.props.character.description}</h4>
           </div>
         </div>
-        <div className="text-right">
-          <button className="btn btn-more" onClick={this.props.addRandomComics}>
-            Add 3 comics to favorites
-          </button>
-        </div>
+        {
+          this.props.hasComics &&
+          <div className="text-right">
+            <button className="btn btn-more" onClick={this.props.addRandomComics}>
+              Add 3 comics to favorites
+            </button>
+          </div>
+        }
       </div>
     );
   }
@@ -42,6 +45,7 @@ class Header extends Component {
 Header.propTypes = {
   character: PropTypes.object.isRequired,
   goBack: PropTypes.func.isRequired,
+  hasComics: PropTypes.bool,
 };
 
 export default Header;

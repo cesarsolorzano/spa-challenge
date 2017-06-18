@@ -23,6 +23,7 @@ class CharacterPage extends Component {
         <Header
           character={this.props.character}
           goBack={this.props.goBack}
+          hasComics={hasComics}
           addRandomComics={() => this.props.addRandomComics(this.props.comics)}
         />
         {
