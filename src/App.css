@@ -120,6 +120,10 @@ Main content
   z-index: -1;
 }
 
+#favorites {
+  padding: 0 15px;
+}
+
 .content-title {
   margin-bottom: 30px;
 }
@@ -230,9 +234,6 @@ Page
 /**
 Modal
 **/
-.modal-comic {
-  width: 55%;
-}
 .modal-comic .modal-body {
   padding-bottom: 0;
 }
@@ -303,7 +304,7 @@ Favorites
 Footer
 **/
 #footer {
-  height: 80px;
+  min-height: 80px;
   background-color: #2d2727;
   padding: 15px 0;
   color: #fff;
@@ -325,5 +326,12 @@ Footer
   .favorites-content {
     display: table-row;
     padding: 0 15px;
+  }
+}
+
+
+@media (min-width : 768px) {
+  .modal-comic {
+    width: 55%;
   }
 }
