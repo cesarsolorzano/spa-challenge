@@ -8,8 +8,11 @@ class ComicRow extends Component {
     return (
     <div className="row comic-row">
       {
-        this.props.group.map(comic =>
-          <Comic comic={comic} key={comic.id} displayComic={this.props.displayComic} />)
+        this.props.group.map(comic => (
+          <div className="col-md-2" key={comic.id}>
+            <Comic comic={comic} displayComic={this.props.displayComic} />
+          </div>
+        ))
       }
     </div>
     );

@@ -8,12 +8,10 @@ class Comic extends Component {
     const thumbnail = getImage(this.props.comic.images);
 
     return (
-      <div className="col-md-2">
-        <a className="clickeable" onClick={() => this.props.displayComic(this.props.comic)}>
-          <img src={thumbnail} className="img img-responsive" alt={this.props.comic.title} />
-          <p>{this.props.comic.title}</p>
-        </a>
-      </div>
+      <a className="clickeable" onClick={() => this.props.displayComic(this.props.comic)}>
+        <img src={thumbnail} className="img img-responsive" alt={this.props.comic.title} />
+        <p>{this.props.comic.title}</p>
+      </a>
     );
   }
 }
