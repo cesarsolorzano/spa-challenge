@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { apikey, hash, apiPath } from '../config';
-import Header from './Header';
-import ComicRow from './ComicRow';
-import ComicModal from './ComicModal';
+import CharacterPage from './CharacterPage';
 
-
-class CharacterPage extends Component {
+class CharacterPageContainer extends Component {
  constructor(props) {
     super(props);
 
     this.state = {
       loading: true,
       comics: [],
-      showModal: false,
+      showComic: false,
       comic: {},
     };
 
@@ -34,61 +31,33 @@ class CharacterPage extends Component {
   }
 
   displayComic(comic) {
-    this.setState({ comic, showModal: true });
+    this.setState({ comic, showComic: true });
   }
 
   closeModel() {
-    this.setState({ showModal: false });
+    this.setState({ showComic: false });
   }
 
   render() {
-    const hasComics = this.state.comics.length > 0;
-    const comics = this.state.comics.reduce((acc, val, index) => {
-      if (index % 6 === 0) {
-        acc.push([val]);
-      } else {
-        acc[acc.length - 1].push(val);
-      }
-      return acc;
-    }, []);
-
     return (
-      <div>
-        <Header
-          character={this.props.character}
-          goBack={this.props.goBack}
-          addRandomComics={() => this.props.addRandomComics(this.state.comics)}
-        />
-        {
-          this.state.loading &&
-          <h4 className="text-center">Loading...</h4>
-        }
-        {
-          hasComics && <h2>Comics</h2>
-        }
-        {
-          !this.state.loading &&
-          comics.map((group, index) =>
-            <ComicRow
-              group={group}
-              key={`comic-${this.props.character.id}-group-${index}`}
-              displayComic={this.displayComic}
-            />)
-        }
-        <ComicModal
-          showModal={this.state.showModal}
-          comic={this.state.comic}
-          closeModel={this.closeModel}
-          addToFavorite={this.props.addToFavorite}
-          isFavorite={this.props.isFavorite}
-        />
-      </div>
+      <CharacterPage
+        loading={this.state.loading}
+        character={this.props.character}
+        comics={this.state.comics}
+        goBack={this.props.goBack}
+        addToFavorite={this.props.addToFavorite}
+        isFavorite={this.props.isFavorite}
+        addRandomComics={this.props.addRandomComics}
+        showComic={this.state.showComic}
+        currentComic={this.state.comic}
+        displayComic={this.displayComic}
+        closeComic={this.closeModel}
+      />
     );
   }
 }
 
-
-CharacterPage.propTypes = {
+CharacterPageContainer.propTypes = {
   character: PropTypes.object.isRequired,
   goBack: PropTypes.func,
   addToFavorite: PropTypes.func,
@@ -96,4 +65,4 @@ CharacterPage.propTypes = {
   addRandomComics: PropTypes.func,
 };
 
-export default CharacterPage;
+export default CharacterPageContainer;

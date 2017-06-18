@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 
 import { apikey, hash, apiPath } from '../config';
-import charactersIcon from '../img/icons/characters.png';
-import CharacterItem from './CharacterItem';
+import CharactersList from './CharactersList';
 import Pagination from './Pagination';
 
-class CharactersList extends Component {
+class CharactersListContainer extends Component {
  constructor(props) {
     super(props);
 
@@ -66,51 +65,13 @@ class CharactersList extends Component {
 
     return (
       <div>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="content-title">
-              <img src={charactersIcon} className="pull-left icon" alt="Favorites" />
-              <h2>Characters</h2>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <select
-              className="form-control input-lg sort-by"
-              onChange={this.props.changeOrderBy}
-              value={this.state.orderBy}
-            >
-              <option value="">Sort by</option>
-              <option value="name">Name (A-Z)</option>
-              <option value="-name">Name (Z-A)</option>
-              <option value="-modified">First modified</option>
-              <option value="modified">Last modified</option>
-            </select>
-          </div>
-        </div>
-        {
-          this.state.loading &&
-          <h4 className="text-center">Loading...</h4>
-        }
-        {
-          !this.state.loading &&
-          characters.map((pair, index) => {
-            return (
-              <div className="row" key={`row-${index}`}>
-                { pair.map(character =>
-                  <div className="col-md-6" key={character.id}>
-                    <CharacterItem
-                      character={character}
-                      displayCharacterDetails={this.props.displayCharacterDetails}
-                    />
-                  </div>)}
-              </div>
-            );
-          })
-        }
-        {
-          !this.state.loading && !this.props.total &&
-          <h4 className="text-center">No characters were found</h4>
-        }
+        <CharactersList
+          characters={characters}
+          loading={this.state.loadin}
+          orderBy={this.props.orderBy}
+          displayCharacterDetails={this.props.displayCharacterDetails}
+          changeOrderBy={this.props.changeOrderBy}
+        />
         <Pagination
           changePage={this.props.changePage}
           total={this.props.total}
@@ -122,7 +83,7 @@ class CharactersList extends Component {
   }
 }
 
-CharactersList.propTypes = {
+CharactersListContainer.propTypes = {
   limit: PropTypes.number,
   offset: PropTypes.number,
   orderBy: PropTypes.string,
@@ -132,4 +93,4 @@ CharactersList.propTypes = {
   updateTotalAndCount: PropTypes.func.isRequired,
 };
 
-export default CharactersList;
+export default CharactersListContainer;
